@@ -84,7 +84,25 @@ if generate_clicked:
         total = grouped.ngroups
 
         # ── Locate LibreOffice ───────────────────────────────────
-        libre_exec = shutil.which("libreoffice") or shutil.which("soffice")
+        # Check PATH first, then try common hardcoded locations on Linux/Streamlit Cloud
+        libre_exec = (
+            shutil.which("libreoffice")
+            or shutil.which("soffice")
+            or "/usr/bin/libreoffice"
+            or "/usr/bin/soffice"
+            or "/usr/lib/libreoffice/program/soffice"
+        )
+        # Verify the resolved path actually exists on disk
+        if not libre_exec or not os.path.isfile(libre_exec):
+            libre_exec = next(
+                (p for p in [
+                    "/usr/bin/libreoffice",
+                    "/usr/bin/soffice",
+                    "/usr/lib/libreoffice/program/soffice",
+                    "/opt/libreoffice/program/soffice",
+                ] if os.path.isfile(p)),
+                None
+            )
         if not libre_exec:
             st.error(
                 "LibreOffice not found on this machine. "
