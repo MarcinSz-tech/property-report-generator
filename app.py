@@ -13,8 +13,8 @@ from datetime import datetime
 # ================================================
 # Page config
 # ================================================
-st.set_page_config(page_title="Report Generator", page_icon="📊", layout="centered")
-st.title("📊 Property Report Generator")
+st.set_page_config(page_title="Analysis Sheets Generator", page_icon="📊", layout="centered")
+st.title("📊 Analysis Sheets Generator")
 st.markdown("Upload your two files below, then click **Generate Reports**.")
 
 # ================================================
